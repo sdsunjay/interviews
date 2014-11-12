@@ -20,7 +20,8 @@ public class Driver
 
       LetterPosition LP = new LetterPosition('*',0,length);
      //letter = d.lookUp(LP,0);
-     System.out.println(d.lookUp(LP,0));
+	 
+    System.out.println("Lookup for words of "+length+" :"+d.lookUp(LP,0));
      //System.out.println("Is " ++ " in your word? (1 - yes) ");
      int answer;
      //answer = input.nextInt();
