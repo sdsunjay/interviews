@@ -38,6 +38,7 @@ public class Driver
 	   System.out.println("Where is that character located? (starting with 0)");
 	   answer = input.nextInt();
 	   LP = new LetterPosition(letter.charValue(),answer,length);
+	   guess = 1;
 	   letter = d.lookUp(LP,guess);
 	}
 	else if (answer == 0)

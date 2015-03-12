@@ -1,8 +1,17 @@
 Known bugs
 
 When a letter is guessed correctly, it isn't able to guess the next letter correctly.
-For example, the word gym, once it guesses 'y', it isn't able to guess 'g' or 'm'.
+For example, the word gym, once it guesses 'y', it isn't able to guess 'g' or
+'m'. FIXED (set guess to 1).
 
 When a letter is guessed correctly, it may guess a letter already found in the word, if that is the most common letter for those set of words.
-For example, the word are, once it guesses 'a', it will guess 'a' again.
+For example, the word are, once it guesses 'a', it will guess 'a' again.FIXED (set guess to 1).
+
+_______________________________________
+
+Use the placement of the letter to get frequency of letters in order to guess.
+Does not take into account placement of correct letters already guessed.
+For example, if 'a' is guessed correctly and then 'r' is guessed correctly, it
+should only look at words containing both those letter placements, not just
+'r'.
 
