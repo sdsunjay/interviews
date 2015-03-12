@@ -1,0 +1,8 @@
+Known bugs
+
+When a letter is guessed correctly, it isn't able to guess the next letter correctly.
+For example, the word gym, once it guesses 'y', it isn't able to guess 'g' or 'm'.
+
+When a letter is guessed correctly, it may guess a letter already found in the word, if that is the most common letter for those set of words.
+For example, the word are, once it guesses 'a', it will guess 'a' again.
+

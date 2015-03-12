@@ -13,11 +13,14 @@ public class Dictionary
 	//   List<List<String>> words = new ArrayList<>();
 		//@SuppressWarnings("unchecked")
 		//Hashtable<LetterPosition,ArrayList<Character>>[] h = (Hashtable<LetterPosition,ArrayList<Character>>[])new Hashtable<?,?>[10];
-	Hashtable<LetterPosition,ArrayList<Character>> table =new Hashtable<LetterPosition,ArrayList<Character>>();
+	private Hashtable<LetterPosition,ArrayList<Character>> table;
+
 	char[] c = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
 	LetterPosition lp; 
 	public Dictionary(String filename,int start,int end)
 	{
+		table =new Hashtable<LetterPosition,ArrayList<Character>>();
+
 		this.filename=filename;
 		this.start = start;
 		this.end = end;
@@ -65,7 +68,7 @@ public class Dictionary
 			scanner.close();
 
 			//for word of length start to end
-			for(int i =start;i<end;i++)
+			for(int i = start;i<end;i++)
 			{
 				test = words.get(i-start);
 				if(test == null)
@@ -138,16 +141,20 @@ public class Dictionary
 		// System.out.println(h.get(lp));
 
 		//lp = new LetterPosition('*',0,length);
-		System.out.println("LOOK UP for word of "+length+" characters: ");
-		System.out.println(lookUp(lp,0));
+		
+		//it works here
+//		System.out.println("LOOK UP for word of "+length+" characters: ");
+//		System.out.println(lookUp(lp,0));
 	}
 
 
-	public List lookUp(LetterPosition l,int guess)
+	public Character lookUp(LetterPosition l,int guess)
 	{
+		// System.out.println("TABLE (in lookUp): "+table.toString());
 		if(table.containsKey(l))
-		{
-			return table.get(l);
+		{	
+			System.out.println(table.get(l));
+			return table.get(l).get(guess);
 		}
 	
 	//	return new Character('-');

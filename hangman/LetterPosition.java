@@ -13,6 +13,15 @@
       {
 	 return "for length "+length+" "+c+" at "+ position;
       }
+
+	/**
+ *
+ * Eriq wrote this and we need to fix it.
+ */
+      public int hashCode() {
+         return ((int)c * 10000) + (position * 1000) + length;
+      }
+
       public boolean equals(Object o)
       {
 	 if(o instanceof LetterPosition)
