@@ -1,15 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <pthread.h>
-#include <netdb.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdbool.h>
-
 
 typedef struct IntElement{
     int data;
@@ -26,38 +16,38 @@ void deleteList( IntElement **head){
     *head = NULL;
 }
 
-bool deleteElement(IntElement **head, IntElement *deleteMe){
+int deleteElement(IntElement **head, IntElement *deleteMe){
     IntElement *elem;
     if (!head || !*head || !deleteMe) /* Check for null pointers */
-        return false;
+        return 1;
     elem = *head;
     if (deleteMe == *head){ /* Special case for head */
         *head = elem->next;
         free(deleteMe);
-        return true;
+        return 0;
     }
     while(elem){
         if (elem->next == deleteMe){
             /* elem is the element preceding deleteMe */
             elem->next = deleteMe->next;
             free(deleteMe);
-            return true;
+            return 0;
         }
         elem = elem->next;
     }
     /* deleteMe is not found */
-    return false;
+    return 1;
 }
 
-bool insertInFront(IntElement **head, int data){
+int insertInFront(IntElement **head, int data){
     IntElement *newElem = malloc(sizeof(IntElement));
     
     if(!newElem)
-        return false;
+        return 1;
     newElem->data = data;
     newElem->next = *head;
     *head = newElem;
-    return true;
+    return 0;
 }
 int main(void){
     return 0;
