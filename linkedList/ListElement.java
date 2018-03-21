@@ -42,7 +42,7 @@ public class ListElement<T>{
     public ListElement<Integer> find(ListElement<Integer> head, int data){
         ListElement<Integer> elem = head;
         // Note: Always test for the end of a linked list as you traverse it
-        while(elem != null && elem.value() != data){
+        while(elem != null && elem.Value() != data){
             elem = elem.next();
         }
         return elem;
