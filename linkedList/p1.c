@@ -2,18 +2,18 @@
 #include <stdlib.h>
 
 typedef struct Element{
-    void *data;
+    int *data;
     struct Element *next;
 }Element;
 
 
 /**
- * Add a new element the top from the stack.
+ * Add a new element to the top from the stack.
  * @param **stack - a pointer to the head of the stack
  * @param **data - the data to be added to the stack
  * @return - whether or not the operation was successful
  */
-int push(Element **stack, void *data){
+int push(Element **stack, int *data){
     Element *elem = malloc(sizeof(Element));
     if(!elem)
         return 1;
@@ -29,7 +29,7 @@ int push(Element **stack, void *data){
  * @param **data - the data that has been removed from the stack
  * @return - whether or not the operation was successful
  */
-int pop(Element **stack, void **data){
+int pop(Element **stack, int **data){
     Element *elem;
     elem = *stack;
     if( !(elem) )
@@ -62,5 +62,27 @@ int deleteStack(Element **stack){
 }
 
 int main(void){
+    int i;
+    Element *top = (Element*) malloc(sizeof(Element));
+    //createStack(top);
+    for(i=0; i<5; i++){
+        int *data = (int*) malloc(sizeof(int));
+        data = &i;
+        if(push(&top, data)==1){
+            printf("Error!");
+        }
+        else {
+            printf("Value added: %d\n", *data);
+        }
+    }
+    for(i=0; i<5; i++){
+        int *data = (int*) malloc(sizeof(int));
+        if(pop(&top, &data)==1){
+            printf("Error!");
+        }
+        else {
+            printf("Value deleted from stack: %d\n", *data);
+        }
+    }
     return 0;
 }
