@@ -18,7 +18,7 @@ public class ListElement<T>{
     /**
      * Returns an ListElement object, which represent the new head of the LinkedList. For example the method can be invoked like this: head = insertInFront(head, data);
      *
-     * @param  list the current head of the LinkedList object 
+     * @param  list the current head of the LinkedList object
      * @param  data the new data to add to the LinkedList
      * @return      the new head of the LinkedList
      * @see         ListElement
@@ -30,11 +30,11 @@ public class ListElement<T>{
         return l;
     }
 
-    
+
     /**
      * Finds the ListElement object containing the data.
      *
-     * @param  head the current head of the LinkedList object 
+     * @param  head the current head of the LinkedList object
      * @param  data the data to find in the LinkedList
      * @return      the node containing the data of the LinkedList
      * @see         ListElement
