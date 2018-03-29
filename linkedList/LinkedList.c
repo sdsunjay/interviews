@@ -1,24 +1,33 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct IntElement{
+typedef struct Element{
     int data;
-    struct IntElement *next;
-}IntElement;
+    struct Element *next;
+}Element;
 
-void deleteList( IntElement **head){
-    IntElement *deleteMe = *head;
+/**
+ * Delete each item in the list one by one
+ */
+void deleteList( Element **head){
+    Element *deleteMe = *head;
     while(deleteMe){
-        IntElement *next = deleteMe->next;
+        Element *next = deleteMe->next;
         free(deleteMe);
         deleteMe = next;
     }
     *head = NULL;
 }
-
-int deleteElement(IntElement **head, IntElement *deleteMe){
-    IntElement *elem;
-    if (!head || !*head || !deleteMe) /* Check for null pointers */
+/**
+ * Delete the element specified
+ *  @param head - the head of the list
+ *  @param deleteMe - the item to delete
+ *  @return whether we successfully delete the element
+ */
+int deleteElement(Element **head, Element *deleteMe){
+    Element *elem;
+    if (!head || !*head || !deleteMe)
+        /* Check for null pointers */
         return 1;
     elem = *head;
     if (deleteMe == *head){ /* Special case for head */
@@ -39,9 +48,9 @@ int deleteElement(IntElement **head, IntElement *deleteMe){
     return 1;
 }
 
-int insertInFront(IntElement **head, int data){
-    IntElement *newElem = malloc(sizeof(IntElement));
-    
+int insertInFront(Element **head, int data){
+    Element *newElem = malloc(sizeof(Element));
+
     if(!newElem)
         return 1;
     newElem->data = data;
