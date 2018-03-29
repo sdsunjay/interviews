@@ -6,8 +6,6 @@ typedef struct Element{
     struct Element *next;
 }Element;
 
-
-
 /**
  * head points to the first element in the linked list
  */
@@ -20,10 +18,17 @@ Element *tail;
 int delete(Element *elem);
 int insertAfter(Element *elem, int data);
 
-// check when the LinkedList is of length 0, 1, or 2
-// Assuming every item in the list is unique
+/**
+ * Delete an element in the list
+ * @param elem - the element you want to delete
+ * @return - 0 if you were successful, otherwise 1
+ */
 int delete(Element *elem){
-    // elem to delete is null
+/*
+ * Use cases:
+ * Check when the LinkedList is of length 0, 1, or 2
+ * Assuming every item in the list is unique
+ */
     if(elem == NULL){
         return 1;
     }
@@ -42,18 +47,22 @@ int delete(Element *elem){
         free(elem);
         return 0;
     }
-    // delete first item in list
+    /*
+     * Delete first item in list
+     */
     else if(elem == head){
         head = elem->next;
         free(elem);
         return 0;
     }
-    // length of more than 1
+    /*
+     * Length of linked list is more than 1
+     */
     Element *trav = head;
     while(trav->next != NULL){
-        // delete last item in the list
+        /* delete last item in the list */
         if(trav->next == tail && elem == tail){
-            // we don't expect this to be true, but just to be safe
+            /* We don't expect this to be true, but just to be safe */
             if(trav->next->next){
                 trav->next = trav->next->next;
             }
