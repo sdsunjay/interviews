@@ -63,12 +63,12 @@ int deleteStack(Element **stack){
 
 int main(void){
     int i;
-    Element *top = (Element*) malloc(sizeof(Element));
-    //createStack(top);
+    Element **top = (Element**) malloc(sizeof(Element*));
+    createStack(top);
+    int *data = (int*) malloc(sizeof(int));
     for(i=0; i<5; i++){
-        int *data = (int*) malloc(sizeof(int));
-        data = &i;
-        if(push(&top, data)==1){
+        *data = i+1;
+        if(push(top, data)==1){
             printf("Error!");
         }
         else {
@@ -76,13 +76,13 @@ int main(void){
         }
     }
     for(i=0; i<5; i++){
-        int *data = (int*) malloc(sizeof(int));
-        if(pop(&top, &data)==1){
+        if(pop(top, &data)==1){
             printf("Error!");
         }
         else {
             printf("Value deleted from stack: %d\n", *data);
         }
     }
+    deleteStack(top);
     return 0;
 }
