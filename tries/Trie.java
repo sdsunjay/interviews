@@ -1,20 +1,3 @@
-
-/**
- *
- * Constraints:
- * 1<=T<=20
- 1<=N<=20
-
-Example:
-Input:
-1
-8
-the a there answer any by bye their
-the
-Output:
-1
-*/
-
 public class Trie {
 
 	// Alphabet size (# of symbols)
@@ -68,6 +51,15 @@ public class Trie {
 			n = n.children[value];
 		}
 		n.setIsEndOfWord(true);
+	}
+
+    /**
+     * Removes a letter
+     */
+    private void removeLetter(char c){
+		Node n = root;
+        int value = (int)(c-'a');
+		n.children[value] == null;
 	}
 
 	public boolean search(String word){

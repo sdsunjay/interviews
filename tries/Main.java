@@ -1,6 +1,21 @@
 
 // https://www.geeksforgeeks.org/trie-insert-and-search/
 
+/**
+ *
+ * Constraints:
+ * 1<=T<=20
+ 1<=N<=20
+
+Example:
+Input:
+1
+8
+the a there answer any by bye their
+the
+Output:
+1
+*/
 import java.util.Scanner;
 public class Main {
 
