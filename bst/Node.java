@@ -1,5 +1,6 @@
 import java.util.Arrays;
 import java.lang.Integer;
+
 public class Node {
     public Node left, right;
     public int data;
@@ -28,6 +29,11 @@ public class Node {
         }
     }
 
+    /**
+     * Whether the BST contains the @param value.
+     * @param value - the value being searched.
+     * @return true if the BST contains @param value, otherwise returns false
+     */
     public boolean contains(int value){
         if(value == data){
             return true;
