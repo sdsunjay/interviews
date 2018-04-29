@@ -1,24 +1,54 @@
 import java.util.ArrayList;
+import java.util.LinkedList;
+
 // https://leetcode.com/problems/bus-routes/description/
 public class Solution {
 	public ArrayList<Bus> allBuses = null;
 
 	public int numBusesToDestination(int[][] routes, int S, int T) {
 		int ret = -1;
-		// Assuming S only occurred in one bus
+        int temp = 0;
 		allBuses = new ArrayList<Bus>(routes.length);
-		Bus s = findBusS(routes, S);
-		System.out.println("Root: " + s);
-        setAllBuses(routes, s);
-		if(s != null){
-			ret = recurse(s, T, ret, allBuses);
-			//if(ret!= -1){
-			//	ret++;
-			//}
-		}
+        setAllBuses(routes);
+		// S can occur in more than one bus route
+		ArrayList<Bus> s = findBusS(allBuses, S);
+		//System.out.println("Root: " + s);
+		for(int i = 0; i < s.size(); i++){
+		    allBuses.remove(s.get(i));
+            temp = bfs(s.get(i), T, ret, allBuses);
+		    if(temp < ret)
+                ret = temp;
+		    allBuses.add(s.get(i));
+        }
+
 		System.out.println(ret);
 		return ret;
 	}
+    private int bfs(Bus node, int T, int ret, ArrayList<Bus> allBuses){
+ 		Bus temp = null;
+		int depth = 0;
+
+		// Create a queue for BFS
+        LinkedList<Bus> queue = new LinkedList<Bus>();
+        // Mark the current node as visited and enqueue it
+		node.setVisited();
+        queue.add(node);
+        while (queue.size() != 0){
+			temp = queue.poll();
+            depth = temp.getDepth();
+			System.out.println(temp);
+            if(temp.containsT(T))
+                return depth+1;
+            temp.setVisited();
+            temp.setChildren(allBuses);
+            ArrayList<Bus> children = temp.getChildren();
+            for(int i = 0; i<children.size(); i++){
+                children.get(i).setDepth(depth+1);
+                queue.add(children.get(i));
+            }
+		}
+        return -1;
+    }
 	private int recurse(Bus node, int T, int ret, ArrayList<Bus> allBuses){
 		int temp = -1;
         System.out.println("Node: " + node);
@@ -31,7 +61,7 @@ public class Solution {
 		System.out.println("Children: ");
 		for(int i = 0; i<children.size(); i++){
 			System.out.println(i + ":  " + children.get(i));
-			if(children.get(i).getVisited() == false){
+			if(children.get(i).isVisited() == false){
 				temp = recurse(children.get(i), T, ret, allBuses);
                 if(temp > 0)
                     return temp + 1;
@@ -40,32 +70,32 @@ public class Solution {
 		}
         return -1;
 	}
-	private void setAllBuses(int[][] routes, Bus s){
+	private void setAllBuses(int[][] routes){
 		for(int i = 0; i< routes.length; i++){
-			Bus b = new Bus(routes[i]);
+			Bus b = new Bus(routes[i], 0);
 			allBuses.add(b);
 		}
-		allBuses.remove(s);
 		System.out.println("All Buses: ");
 		for(int i = 0; i<allBuses.size(); i++){
 		    System.out.println(allBuses.get(i));
 		}
+        System.out.println("*********");
 	}
-	private Bus findBusS(int[][] routes, int s){
-		for(int i = 0; i< routes.length; i++){
-			for(int j = 0; j < routes[i].length; j++){
-				if(routes[i][j] == s){
-					return new Bus(routes[i]);
-				}
-			}
+	private ArrayList<Bus> findBusS(ArrayList<Bus> allBuses, int s){
+		ArrayList<Bus> temp = new ArrayList<Bus>();
+        for(int i = 0; i < allBuses.size(); i++){
+		    if(allBuses.get(i).containsT(s)){
+                temp.add(allBuses.get(i));
+            }
 		}
-		return null;
+		return temp;
 	}
 	// inner class
 	private class Bus{
 		private boolean visited;
 		private ArrayList<Integer> route;
 		private ArrayList<Bus> children;
+        private int depth;
 
 		public Bus(int[] route){
 			children = new ArrayList<Bus>();
@@ -75,10 +105,25 @@ public class Solution {
 			}
 			visited = false;
 		}
+		public Bus(int[] route, int depth){
+            this.depth = depth;
+			children = new ArrayList<Bus>();
+			this.route = new ArrayList<>(route.length);
+			for (int i : route) {
+				this.route.add(Integer.valueOf(i));
+			}
+			visited = false;
+		}
+		public void setDepth(int depth){
+			this.depth = depth;
+		}
+		public int getDepth(){
+			return depth;
+		}
 		public void setVisited(){
 			visited = true;
 		}
-		public boolean getVisited(){
+		public boolean isVisited(){
 			return visited;
 		}
 		public ArrayList<Integer> getRoute(){
@@ -102,7 +147,7 @@ public class Solution {
 			return ret;
 		}
 		private boolean containsRoute(Bus temp){
-			if(temp.getVisited() == false){
+			if(temp.isVisited() == false){
 				ArrayList<Integer> tempRoute = temp.getRoute();
 				for(int i = 0; i < tempRoute.size(); i++){
 					if(route.contains(tempRoute.get(i))) {
