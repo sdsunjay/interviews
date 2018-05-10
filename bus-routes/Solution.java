@@ -14,37 +14,50 @@ public class Solution {
 		ArrayList<Bus> s = findBusS(allBuses, S);
 		//System.out.println("Root: " + s);
 		for(int i = 0; i < s.size(); i++){
-		    allBuses.remove(s.get(i));
-            temp = bfs(s.get(i), T, ret, allBuses);
-		    if(temp < ret)
-                ret = temp;
+		    System.out.println("Root: " + s.get(i));
+            allBuses.remove(s.get(i));
+            temp = bfs(s.get(i), T, allBuses);
+		    System.out.println("temp: " + temp);
+            if(temp > -1){
+                if(ret != -1){
+                    if(temp < ret)
+                        ret = temp;
+                } else {
+                        ret = temp;
+                }
+            }
 		    allBuses.add(s.get(i));
+            resetDepth();
         }
 
 		System.out.println(ret);
 		return ret;
 	}
-    private int bfs(Bus node, int T, int ret, ArrayList<Bus> allBuses){
+    private int bfs(Bus node, int T, ArrayList<Bus> allBuses){
  		Bus temp = null;
 		int depth = 0;
 
 		// Create a queue for BFS
         LinkedList<Bus> queue = new LinkedList<Bus>();
         // Mark the current node as visited and enqueue it
-		node.setVisited();
         queue.add(node);
         while (queue.size() != 0){
 			temp = queue.poll();
-            depth = temp.getDepth();
-			System.out.println(temp);
-            if(temp.containsT(T))
-                return depth+1;
-            temp.setVisited();
-            temp.setChildren(allBuses);
-            ArrayList<Bus> children = temp.getChildren();
-            for(int i = 0; i<children.size(); i++){
-                children.get(i).setDepth(depth+1);
-                queue.add(children.get(i));
+            if(temp.isVisited() == false){
+                depth = temp.getDepth();
+                System.out.println("Bus temp: " + temp);
+                System.out.println("Bus depth: " + depth);
+                if(temp.containsT(T)){
+                    System.out.println("FOUND");
+                    return depth+1;
+                }
+                temp.setVisited();
+                temp.setChildren(allBuses);
+                ArrayList<Bus> children = temp.getChildren();
+                for(int i = 0; i<children.size(); i++){
+                    children.get(i).setDepth(depth+1);
+                    queue.add(children.get(i));
+                }
             }
 		}
         return -1;
@@ -70,6 +83,12 @@ public class Solution {
 		}
         return -1;
 	}
+    private void resetDepth(){
+		for(int i = 0; i< allBuses.size(); i++){
+			allBuses.get(i).setDepth(0);
+		}
+
+    }
 	private void setAllBuses(int[][] routes){
 		for(int i = 0; i< routes.length; i++){
 			Bus b = new Bus(routes[i], 0);
@@ -161,9 +180,10 @@ public class Solution {
 			return false;
 		}
 		public void setChildren(ArrayList<Bus> allBuses){
-			for(int i = 0; i < allBuses.size(); i++){
+			System.out.println("Children: ");
+            for(int i = 0; i < allBuses.size(); i++){
 				if(containsRoute(allBuses.get(i))){
-				    //System.out.println("Added: " + allBuses.get(i));
+				    System.out.println("child : " + allBuses.get(i));
                     children.add(allBuses.get(i));
                 }
 			}
