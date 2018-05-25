@@ -76,11 +76,12 @@ int main(void){
         }
     }
     for(i=0; i<5; i++){
-        if(pop(top, &data)==1){
+        int **data = (int**) calloc(1, sizeof(int*));
+        if(pop(top, data)==1){
             printf("Error!");
         }
         else {
-            printf("Value deleted from stack: %d\n", *data);
+            printf("Value deleted from stack: %d\n", **data);
         }
     }
     deleteStack(top);

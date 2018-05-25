@@ -1,0 +1,11 @@
+
+        TreeNode temp;
+        if(root == null)
+            return;
+        if(root.left == null)
+            return;
+        temp = root.left;
+        if(root.right != null){
+
+        }
+
