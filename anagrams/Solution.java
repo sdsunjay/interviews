@@ -10,6 +10,7 @@ public class Solution {
   /** Given two strings (lowercase a -> z), how many characters do we need to remove
    * (from either) to make them anagrams?
    * EXAMPLE: hello, billion --> ANSWER: 6 ('he' from 'hello' and 'binn' from 'billion')
+   * https://youtu.be/3MwRGPPB4tw
    */
 
   public static void main(String[] args) throws Exception {
