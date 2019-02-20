@@ -5,12 +5,12 @@ public class Counter{
 
     Hashtable<Integer, Integer> table = new Hashtable<Integer, Integer>();
     Node[] array = new Node[5];
+
     /**
      * Increment counter using an array of Nodes
      */
     public void hit(){
         int i = (int) (new Date().getTime()/60000);
-        // System.out.println("Time: " + i);
         int index = i%5;
         if(array[index] != null){
             if(i == array[index].time){
@@ -24,8 +24,6 @@ public class Counter{
         }
     }
     public int count(){
-        // int i = (int) (new Date().getTime()/60000);
-        // int index = i%5;
         int sum = 0;
         for(int i = 0; i < 5; i++){
           if(array[i] != null){
@@ -39,13 +37,12 @@ public class Counter{
      */
     public void hit1(){
         int i = (int) (new Date().getTime()/60000);
-        // System.out.println("Time: " + i);
-        Integer counter = table.get(new Integer(i));
+        Integer counter = table.get(Integer.valueOf(i));
         if(counter == null){
-          table.put(new Integer(i), new Integer(1));
+          table.put(Integer.valueOf(i), Integer.valueOf(1));
         }
         else {
-          table.put(new Integer(i), new Integer(counter + 1));
+          table.put(Integer.valueOf(i), Integer.valueOf(counter + 1));
         }
 
     }
@@ -57,7 +54,7 @@ public class Counter{
         int now = (int) (new Date().getTime()/60000);
         int sum = 0;
         for(int i = 0; i < 5; i++){
-           Integer temp = table.get(new Integer(now - i));
+           Integer temp = table.get(Integer.valueOf(now - i));
            if(temp != null){
               sum += temp;
            }
