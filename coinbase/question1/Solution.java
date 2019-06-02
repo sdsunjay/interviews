@@ -3,32 +3,47 @@ import java.util.*;
 
 public class Solution {
 
+    public static class Node {
+      private long time;
+      private String state;
+      public Node(long time, String state){
+        this.time = time;
+        this.state = state;
+      }
+
+      public String getState(){
+        return state;
+      }
+    }
     public static class FiniteStateMachine {
         private final String[] validStates;
-        private final Map<String, Long> changedAt = new HashMap<>();
+        // private final Map<String, Long> changedAt = new HashMap<>();
         private List<String> listOfStates;
+        // Creating a Stack
+        private Stack<Node> changedAt = new Stack<>();
 
         public FiniteStateMachine(String[] states) {
             this.validStates = states;
-              // Convert String Array to List
+            // Convert String Array to List
             listOfStates = Arrays.asList(states);
+            // init with a default state
             set(states[0]);
 
-            // init with a default state
         }
 
         public void set(String state) {
             if (!listOfStates.contains(state)) {
                 throw new IllegalArgumentException("Invalid state");
             }
-            changedAt.put(state, System.currentTimeMillis());
+            changedAt.push(new Node(System.currentTimeMillis(), state));
         }
 
         public boolean isState(String state) {
-            Long time = changedAt.get(state);
-            //time <= System.currentTimeMillis();
-            // check with Stack
-            return changedAt.containsKey(state);
+            if(!changedAt.empty()){
+              Node temp = changedAt.peek();
+              return temp.getState() == state;
+            }
+            return false;
         }
     }
 
